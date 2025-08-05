@@ -196,6 +196,71 @@ require("lspconfig").rust_analyzer.setup {
   },
 }
 
--- Typescript, JS, Vue, ... Just web development
+local vue_language_server_path = "/opt/homebrew/lib/node_modules/@vue/language-server"
+local vue_plugin = {
+  name = "@vue/typescript-plugin",
+  location = vue_language_server_path,
+  languages = { "vue" },
+  configNamespace = "typescript",
+}
+local vtsls_config = {
+  settings = {
+    vtsls = {
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
+      },
+    },
+  },
+  filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+}
+-- If you are on most recent `nvim-lspconfig`
+local vue_ls_coonfig = {}
+-- If you are not on most recent `nvim-lspconfig` or you want to override
+local vue_ls_config = {
+  on_init = function(client)
+    client.handlers["tsserver/request"] = function(_, result, context)
+      local clients = vim.lsp.get_clients { bufnr = context.bufnr, name = "vtsls" }
+      if #clients == 0 then
+        vim.notify("Could not find `vtsls` lsp client, `vue_ls` would not work without it.", vim.log.levels.ERROR)
+        return
+      end
+      local ts_client = clients[1]
+
+      local param = unpack(result)
+      local id, command, payload = unpack(param)
+      ts_client:exec_cmd({
+        title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+        command = "typescript.tsserverRequest",
+        arguments = {
+          command,
+          payload,
+        },
+      }, { bufnr = context.bufnr }, function(_, r)
+        local response = r and r.body
+        -- TODO: handle error or response nil here, e.g. logging
+        -- NOTE: Do NOT return if there's an error or no response, just return nil back to the vue_ls to prevent memory leak
+        local response_data = { { id, response } }
+
+        ---@diagnostic disable-next-line: param-type-mismatch
+        client:notify("tsserver/response", response_data)
+      end)
+    end
+  end,
+}
+
+-- npm install [-g] @biomejs/biome
 require("lspconfig").biome.setup {}
+
+-- Install dart-lang
 require("lspconfig").dartls.setup {}
+
+-- npm install -g @vue/language-server
+require("lspconfig").vtsls.setup { vtsls_config }
+
+-- npm install -g @vue/language-server
+require("lspconfig").volar.setup { vue_ls_config }
+
+-- go install github.com/bufbuild/buf-language-server/cmd/bufls@latest
+require("lspconfig").bufls.setup {}
