@@ -263,4 +263,4 @@ require("lspconfig").vtsls.setup { vtsls_config }
 require("lspconfig").volar.setup { vue_ls_config }
 
 -- go install github.com/bufbuild/buf-language-server/cmd/bufls@latest
-require("lspconfig").bufls.setup {}
+require("lspconfig").buf_ls.setup {}
