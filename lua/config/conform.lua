@@ -15,6 +15,9 @@ require("conform").setup {
     json = { "jq", lsp_format = "fallback" },
     dart = { "dart_format", stop_after_first = true },
     nginx = { "nginxfmt", stop_after_first = true },
+    sql = { "pg_format", stop_after_first = true },
+    postgresql = { "pg_format", stop_after_first = true },
+    pgsql = { "pg_format", stop_after_first = true },
     format_on_save = {
       -- I recommend these options. See :help conform.format for details.
       lsp_format = "fallback",
