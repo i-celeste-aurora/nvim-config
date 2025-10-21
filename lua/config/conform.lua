@@ -21,6 +21,7 @@ require("conform").setup {
     bash = { "beautysh", stop_after_first = true },
     shell = { "beautysh", stop_after_first = true },
     sh = { "beautysh", stop_after_first = true },
+    yaml = { "yq", stop_after_first = true },
     format_on_save = {
       -- I recommend these options. See :help conform.format for details.
       lsp_format = "fallback",
