@@ -9,6 +9,9 @@ utils.is_compatible_version(expected_version)
 
 local config_dir = vim.fn.stdpath("config")
 ---@cast config_dir string
+local termfeatures = vim.g.termfeatures or {}
+termfeatures.osc52 = false
+vim.g.termfeatures = termfeatures
 
 -- some global settings
 require("globals")
