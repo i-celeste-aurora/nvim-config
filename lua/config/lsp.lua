@@ -1,7 +1,6 @@
 local api = vim.api
 local keymap = vim.keymap
 local lsp = vim.lsp
-local lspconfig = require("lspconfig")
 
 local utils = require("utils")
 
@@ -108,7 +107,7 @@ if utils.executable("pyright") then
   }
   local merged_capability = vim.tbl_deep_extend("force", capabilities, new_capability)
 
-  lspconfig.pyright.setup {
+  vim.lsp.config("pyright", {
     cmd = { "delance-langserver", "--stdio" },
     capabilities = merged_capability,
     settings = {
@@ -137,130 +136,70 @@ if utils.executable("pyright") then
         },
       },
     },
-  }
+  })
+  vim.lsp.enable("pyright")
 else
   vim.notify("pyright not found!", vim.log.levels.WARN, { title = "Nvim-config" })
 end
 
 if utils.executable("clangd") then
-  lspconfig.clangd.setup {
+  vim.lsp.config("clangd", {
     capabilities = capabilities,
     filetypes = { "c", "cpp", "cc", "swift", "objective-c", "m" },
     flags = {
       debounce_text_changes = 500,
     },
-  }
+  })
+  vim.lsp.enable("clangd")
 end
 
 -- set up vim-language-server
 if utils.executable("vim-language-server") then
-  lspconfig.vimls.setup {
+  vim.lsp.config("vimls", {
     flags = {
       debounce_text_changes = 500,
     },
     capabilities = capabilities,
-  }
+  })
+  vim.lsp.enable("vimls")
 else
   vim.notify("vim-language-server not found!", vim.log.levels.WARN, { title = "Nvim-config" })
 end
 
 -- set up bash-language-server
 if utils.executable("bash-language-server") then
-  lspconfig.bashls.setup {
-    capabilities = capabilities,
-  }
+  vim.lsp.enable("bashls")
 end
 
 -- settings for lua-language-server can be found on https://luals.github.io/wiki/settings/
-if utils.executable("lua-language-server") then
-  lspconfig.lua_ls.setup {
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-        },
-        hint = {
-          enable = true,
-        },
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = "LuaJIT",
+      },
+      hint = {
+        enable = true,
       },
     },
-    capabilities = capabilities,
-  }
-end
+  },
+  capabilities = capabilities,
+})
+vim.lsp.enable("lua_ls")
 
-require("lspconfig").rust_analyzer.setup {
+vim.lsp.config("rust_analyzer", {
   -- Server-specific settings. See `:help lspconfig-setup`
   settings = {
     ["rust-analyzer"] = {},
   },
-}
-
-local vue_language_server_path = "/opt/homebrew/lib/node_modules/@vue/language-server"
-local vue_plugin = {
-  name = "@vue/typescript-plugin",
-  location = vue_language_server_path,
-  languages = { "vue" },
-  configNamespace = "typescript",
-}
-local vtsls_config = {
-  settings = {
-    vtsls = {
-      tsserver = {
-        globalPlugins = {
-          vue_plugin,
-        },
-      },
-    },
-  },
-  filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-}
--- If you are on most recent `nvim-lspconfig`
-local vue_ls_coonfig = {}
--- If you are not on most recent `nvim-lspconfig` or you want to override
-local vue_ls_config = {
-  on_init = function(client)
-    client.handlers["tsserver/request"] = function(_, result, context)
-      local clients = vim.lsp.get_clients { bufnr = context.bufnr, name = "vtsls" }
-      if #clients == 0 then
-        vim.notify("Could not find `vtsls` lsp client, `vue_ls` would not work without it.", vim.log.levels.ERROR)
-        return
-      end
-      local ts_client = clients[1]
-
-      local param = unpack(result)
-      local id, command, payload = unpack(param)
-      ts_client:exec_cmd({
-        title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
-        command = "typescript.tsserverRequest",
-        arguments = {
-          command,
-          payload,
-        },
-      }, { bufnr = context.bufnr }, function(_, r)
-        local response = r and r.body
-        -- TODO: handle error or response nil here, e.g. logging
-        -- NOTE: Do NOT return if there's an error or no response, just return nil back to the vue_ls to prevent memory leak
-        local response_data = { { id, response } }
-
-        ---@diagnostic disable-next-line: param-type-mismatch
-        client:notify("tsserver/response", response_data)
-      end)
-    end
-  end,
-}
+})
+vim.lsp.enable("rust_analyzer")
 
 -- npm install [-g] @biomejs/biome
-require("lspconfig").biome.setup {}
+vim.lsp.enable("biome")
+vim.lsp.enable("dartls")
 
--- Install dart-lang
-require("lspconfig").dartls.setup {}
-
--- npm install -g @vue/language-server
-require("lspconfig").vtsls.setup { vtsls_config }
-
--- npm install -g @vue/language-server
-require("lspconfig").volar.setup { vue_ls_config }
-
--- go install github.com/bufbuild/buf-language-server/cmd/bufls@latest
-require("lspconfig").buf_ls.setup {}
+vim.lsp.enable("vtsls")
+vim.lsp.enable("vue_ls")
+vim.lsp.enable("buf_ls")
