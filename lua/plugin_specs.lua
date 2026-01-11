@@ -540,6 +540,11 @@ local plugin_specs = {
     },
   },
   {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
+  {
     "tpope/vim-fugitive",
     config = function()
       -- Optional configuration can go here

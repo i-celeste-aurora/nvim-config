@@ -30,6 +30,10 @@ require("diagnostic-conf")
 -- colorscheme settings
 local color_scheme = require("colorschemes")
 
+-- lsp
+-- vim.lsp.enable({
+--   "clangd", "pyright", "vimls", "bashls", "luals", "rust_analyzer", "biome", "dartls", "ts_ls", "vts_ls", "vue_ls", "buf_ls""
+-- })
 -- color_scheme.rand_colorscheme()
 -- color_scheme.rand_colorscheme()
 color_scheme.colorscheme_conf.tokyodark()
