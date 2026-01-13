@@ -24,6 +24,18 @@ M.colorscheme_conf = {
   tokyodark = function()
     vim.cmd([[colorscheme tokyodark]])
   end,
+  gruvbox = function()
+    vim.cmd([[colorscheme gruvbox]])
+  end,
+  everforest = function()
+    vim.cmd([[colorscheme everforest]])
+  end,
+  sonokai = function()
+    vim.cmd([[colorscheme sonokai]])
+  end,
+  melange = function()
+    vim.cmd([[colorscheme melange]])
+  end,
 }
 
 --- Use a random colorscheme from the pre-defined list of colorschemes.

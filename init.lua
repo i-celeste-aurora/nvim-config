@@ -32,4 +32,4 @@ local color_scheme = require("colorschemes")
 
 -- color_scheme.rand_colorscheme()
 -- color_scheme.rand_colorscheme()
-color_scheme.colorscheme_conf.tokyodark()
+color_scheme.colorscheme_conf.sonokai()

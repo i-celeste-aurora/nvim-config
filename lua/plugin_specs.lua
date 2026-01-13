@@ -119,12 +119,6 @@ local plugin_specs = {
   },
   -- A list of colorscheme plugin you may want to try. Find what suits you.
   {
-    "ricardoraposo/nightwolf.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
     "romanaverin/charleston.nvim",
     name = "charleston",
     priority = 1000,
@@ -155,8 +149,19 @@ local plugin_specs = {
       require("config.tokyodark")
     end,
   },
+  {
+    "sainnhe/sonokai",
+    lazy = true,
+    priority = 1000,
+  },
+  {
+    "sainnhe/everforest",
+    lazy = true,
+    priority = 1000,
+  },
+  { "savq/melange-nvim" },
+  --
   { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
-
   {
     "akinsho/bufferline.nvim",
     event = { "BufEnter" },
