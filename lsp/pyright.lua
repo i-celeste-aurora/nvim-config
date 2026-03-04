@@ -46,8 +46,7 @@ if utils.executable("pyright") then
         },
       },
     },
-  })
+  }
 else
   vim.notify("pyright not found!", vim.log.levels.WARN, { title = "Nvim-config" })
 end
-
