@@ -21,6 +21,13 @@ local firenvim_not_active = function()
 end
 
 local plugin_specs = {
+  {
+    "navarasu/onedark.nvim",
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require("config.onedark")
+    end,
+  },
   -- auto-completion engine
   {
     "hrsh7th/nvim-cmp",
@@ -503,13 +510,6 @@ local plugin_specs = {
     event = "VeryLazy",
     config = function()
       require("config.marks")
-    end,
-  },
-  {
-    "tribela/transparent.nvim",
-    event = "VimEnter",
-    config = function()
-      require("config.transparent")
     end,
   },
   {

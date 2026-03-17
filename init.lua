@@ -27,10 +27,7 @@ vim.cmd("source " .. vim.fs.joinpath(config_dir, "viml_conf/plugins.vim"))
 -- diagnostic related config
 require("diagnostic-conf")
 
--- colorscheme settings
-local color_scheme = require("colorschemes")
-
 -- color_scheme.rand_colorscheme()
 -- color_scheme.rand_colorscheme()
-color_scheme.colorscheme_conf.tokyodark()
 vim.lsp.enable("csharp_ls")
+vim.cmd("colorscheme onedark")
