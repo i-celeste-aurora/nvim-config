@@ -9,9 +9,6 @@ M.colorscheme_conf = {
   kanagawa = function()
     vim.cmd("colorscheme kanagawa-wave")
   end,
-  cs = function()
-    vim.cmd([[colorscheme charleston]])
-  end,
   gruvbox = function()
     vim.cmd([[colorscheme gruvbox]])
   end,

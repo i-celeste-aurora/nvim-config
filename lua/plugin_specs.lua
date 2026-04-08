@@ -126,11 +126,6 @@ local plugin_specs = {
   },
   -- A list of colorscheme plugin you may want to try. Find what suits you.
   {
-    "romanaverin/charleston.nvim",
-    name = "charleston",
-    priority = 1000,
-  },
-  {
     "rebelot/kanagawa.nvim",
     lazy = true,
     config = function()
