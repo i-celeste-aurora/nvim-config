@@ -4,7 +4,7 @@ vim.loader.enable()
 
 local utils = require("utils")
 
-local expected_version = "0.11.6"
+local expected_version = "0.12.1"
 utils.is_compatible_version(expected_version)
 
 local config_dir = vim.fn.stdpath("config")
@@ -30,4 +30,4 @@ require("diagnostic-conf")
 -- color_scheme.rand_colorscheme()
 -- color_scheme.rand_colorscheme()
 vim.lsp.enable("csharp_ls")
-vim.cmd("colorscheme onedark")
+vim.cmd("colorscheme sonokai")

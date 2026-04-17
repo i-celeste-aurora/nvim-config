@@ -28,6 +28,9 @@ local plugin_specs = {
       require("config.onedark")
     end,
   },
+  {
+    "olimorris/onedarkpro.nvim",
+  },
   -- auto-completion engine
   {
     "hrsh7th/nvim-cmp",
