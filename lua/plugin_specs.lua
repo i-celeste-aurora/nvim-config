@@ -31,6 +31,14 @@ local plugin_specs = {
   {
     "olimorris/onedarkpro.nvim",
   },
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("config.cyberdream")
+    end,
+  },
   -- auto-completion engine
   {
     "hrsh7th/nvim-cmp",
