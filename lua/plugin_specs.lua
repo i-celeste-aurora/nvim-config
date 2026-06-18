@@ -22,25 +22,6 @@ end
 
 local plugin_specs = {
   {
-    "navarasu/onedark.nvim",
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      require("config.onedark")
-    end,
-  },
-  {
-    "olimorris/onedarkpro.nvim",
-  },
-  {
-    "scottmckendry/cyberdream.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("config.cyberdream")
-    end,
-  },
-  -- auto-completion engine
-  {
     "hrsh7th/nvim-cmp",
     name = "nvim-cmp",
     -- event = 'InsertEnter',
@@ -144,36 +125,11 @@ local plugin_specs = {
     end,
   },
   {
-    "ellisonleao/gruvbox.nvim",
-    lazy = true,
-    config = function()
-      require("config.gruvbox")
-    end,
-  },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
     "tiagovla/tokyodark.nvim",
     config = function()
       require("config.tokyodark")
     end,
   },
-  {
-    "sainnhe/sonokai",
-    lazy = true,
-    priority = 1000,
-  },
-  {
-    "sainnhe/everforest",
-    lazy = true,
-    priority = 1000,
-  },
-  { "savq/melange-nvim" },
-  --
   { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
   {
     "akinsho/bufferline.nvim",

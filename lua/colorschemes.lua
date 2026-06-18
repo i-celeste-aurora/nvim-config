@@ -9,26 +9,8 @@ M.colorscheme_conf = {
   kanagawa = function()
     vim.cmd("colorscheme kanagawa-wave")
   end,
-  gruvbox = function()
-    vim.cmd([[colorscheme gruvbox]])
-  end,
-  tokyonight = function()
-    vim.cmd([[colorscheme tokyonight]])
-  end,
   tokyodark = function()
     vim.cmd([[colorscheme tokyodark]])
-  end,
-  gruvbox = function()
-    vim.cmd([[colorscheme gruvbox]])
-  end,
-  everforest = function()
-    vim.cmd([[colorscheme everforest]])
-  end,
-  sonokai = function()
-    vim.cmd([[colorscheme sonokai]])
-  end,
-  melange = function()
-    vim.cmd([[colorscheme melange]])
   end,
 }
 
